@@ -27,4 +27,12 @@ ClassMethod Hello(name As %String, Output count As %Integer) As %Status
     Return sc
 }
 
+/// Description
+ClassMethod SaveToGlobal() As %Status
+{
+    for i=1:1:100000 {
+        set ^names(##class(%PopulateUtils).Name()) = i
+    }
+}
+
 }
