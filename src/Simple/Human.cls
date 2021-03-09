@@ -23,6 +23,20 @@ Method Print(state As %String) As %Status
     Return $$$OK
 }
 
+/// Description
+ClassMethod ShowAll() As %Status
+{
+    set sql = "SELECT ID,  Name, Phone FROM Simple.Human ORDER BY Name"
+    set stmt = ##class(%SQL.Statement).%New()
+    set tSC = stmt.%Prepare(sql)
+    /// нужна проверка статуса tSC
+    set rset = stmt.%Execute()
+    while rset.%Next() {
+        write $$$NL
+        write rset.ID_" "_rset.Name_ " "_rset.Phone
+    }
+}
+
 Storage Default
 {
 <Data name="HumanDefaultData">
