@@ -1,5 +1,5 @@
 /// Description
-Class Fit.Person Extends %Populate [ Abstract ]
+Class Fit.Person Extends (%Populate, %JSON.Adaptor, %XML.Adaptor) [ Abstract ]
 {
 
 Property Name As %String [ Required ];

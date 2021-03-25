@@ -4,6 +4,8 @@ Class Fit.Coach Extends (%Persistent, Fit.Person)
 
 Property Awards As array Of %String;
 
+Relationship Trainings As Fit.Training [ Cardinality = many, Inverse = Coach ];
+
 Storage Default
 {
 <Data name="Awards">
@@ -23,6 +25,9 @@ Storage Default
 </Value>
 <Value name="4">
 <Value>Phone</Value>
+</Value>
+<Value name="5">
+<Value>Price</Value>
 </Value>
 </Data>
 <DataLocation>^Fit.CoachD</DataLocation>
