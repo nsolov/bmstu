@@ -2,7 +2,14 @@
 Class Fit.Coach Extends (%Persistent, Fit.Person)
 {
 
+/// массив наград, в качестве ключей используются даты получения награды
 Property Awards As array Of %String;
+
+/// Текстовый поток
+Property Info As %Stream.GlobalCharacter;
+
+/// Бинарный поток (фото тренера)
+Property Img As %Stream.GlobalBinary;
 
 Relationship Trainings As Fit.Training [ Cardinality = many, Inverse = Coach ];
 
@@ -28,6 +35,12 @@ Storage Default
 </Value>
 <Value name="5">
 <Value>Price</Value>
+</Value>
+<Value name="6">
+<Value>Info</Value>
+</Value>
+<Value name="7">
+<Value>Img</Value>
 </Value>
 </Data>
 <DataLocation>^Fit.CoachD</DataLocation>
