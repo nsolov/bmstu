@@ -1,5 +1,5 @@
 /// Description
-Class Fit.Appointment Extends (%Persistent, %Populate, %JSON.Adaptor, %XML.Adaptor)
+Class Fit.Appointment Extends (%Persistent, %Populate, %JSON.Adaptor, %XML.Adaptor) [ CompileAfter = (Fit.Client, Fit.Training) ]
 {
 
 /// Description
