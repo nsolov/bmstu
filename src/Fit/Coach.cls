@@ -13,6 +13,19 @@ Property Img As %Stream.GlobalBinary;
 
 Relationship Trainings As Fit.Training [ Cardinality = many, Inverse = Coach ];
 
+ClassMethod GetAll() As %DynamicArray
+{
+    set ja = []
+    set sql = "SELECT ID FROM Fit.Coach"
+    set rs = ##class(%SQL.Statement).%ExecDirect(.stmt,sql)
+    while rs.%Next() {
+        set coach = ##class(Fit.Coach).%OpenId(rs.ID)
+        set st = coach.%JSONExportToString(.coachJSONstring)
+        do ja.%Push({}.%FromJSON(coachJSONstring))
+    }
+    Return ja
+}
+
 Storage Default
 {
 <Data name="Awards">

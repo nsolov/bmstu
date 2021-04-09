@@ -3,15 +3,15 @@ Class Fit.Training Extends (%Persistent, %Populate, %JSON.Adaptor, %XML.Adaptor)
 {
 
 /// Description
-Property Name As %String(MAXLEN = 100);
+Property Name As %String(MAXLEN = 100, VALUELIST = ",Zumba,Yoga Nidra,Yoga,Yoga Vanyasa,Pilates,BOSU Training");
 
-Property MaxPersons As %Integer;
+Property MaxPersons As %Integer(MAXVAL = 6, MINVAL = 1);
 
-Property Date As %Date;
+Property Date As %Date(MAXVAL = "3+$h", MINVAL = "+$h");
 
 Property Time As %Time;
 
-Property Duration As %Time;
+Property Duration As %Time(VALUELIST = ",3600,4500,6000");
 
 /// Description
 Relationship Coach As Fit.Coach [ Cardinality = one, Inverse = Trainings ];

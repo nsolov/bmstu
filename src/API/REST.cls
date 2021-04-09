@@ -12,7 +12,20 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
   <Route Url="/test" Method="GET" Call="Test"/>
   <Route Url="/client/:ID" Method="GET" Call="GetClient"/>
   <Route Url="/client" Method="Post" Call="SaveClient" />
+  <Route Url="/coach" Method="GET" Call="GetCoaches"/>
 </Routes>
+}
+
+ClassMethod GetCoaches() As %Status
+{
+  try {
+    set jo = {"coaches":(##class(Fit.Coach).GetAll())}  
+    write jo.%ToJSON()
+  } catch ex {
+    do ex.Log()
+    return ex.AsStatus()
+  }
+  Return $$$OK
 }
 
 /// в теле запроса приходит json следующего формата
