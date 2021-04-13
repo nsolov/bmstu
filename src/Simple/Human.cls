@@ -1,5 +1,5 @@
 /// Description
-Class Simple.Human Extends %Persistent
+Class Simple.Human Extends (%Persistent, %Populate)
 {
 
 /// Description
@@ -7,7 +7,44 @@ Property Name As %String [ Required ];
 
 Property Phone As %String;
 
+Index PhoneIndex On Phone;
+
+Index NameIndex On Name [ Unique ];
+
 Property State As %String(MAXLEN = 2);
+
+/// Description
+Query Humans(name) As %SQLQuery [ SqlProc ]
+{
+    SELECT ID, Name, Phone FROM Simple.Human WHERE Name %STARTSWITH :name
+}
+
+/// Returns ID of the new Object
+ClassMethod InsertHuman(name As %String, phone As %String) As %Integer
+{
+    &sql(INSERT INTO Simple.Human(Name,Phone) VALUES(:name, :phone))
+    if (SQLCODE=0) {
+        return %ROWID
+    } 
+    return 0
+}
+
+ClassMethod CountHuman() As %Integer
+{
+    set count = 0
+    &sql(SELECT COUNT(*) INTO :count FROM Simple.Human)
+    return count
+}
+
+ClassMethod ShowHumans(name As %String) As %Status
+{
+    set sql = "SELECT ID,Name,Phone FROM Simple.Human WHERE Name %STARTSWITH ?"
+    set rs = ##class(%SQL.Statement).%ExecDirect(.stmt,sql,name)
+    while rs.%Next() {
+        write $$$NL
+        write rs.ID _ " "_ rs.Name _ " " _ rs.Phone
+    }
+}
 
 /// Метод объекта, вызываем только через  OREF
 Method Print(state As %String) As %Status
